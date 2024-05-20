@@ -15,18 +15,17 @@ public class PlayerMove : MonoBehaviour
     public enum AnimState { IDLE, JUMP,LAND };
     public static AnimState state = AnimState.IDLE;
 
-    Rigidbody rb;
-    Animator anim;
-
-    
     public float moveSpeed = 5f;
     public int jumpPower = 10;
     public float sensitity = 1f;
 
-    float m_prevPosY = 0.0f;
-    bool isAir = false;
-    bool isFall = false;
-    bool isStun = false;
+    private Rigidbody rb;
+    private Animator anim;
+
+    private float m_prevPosY = 0.0f;
+    private bool isAir = false;
+    private bool isFall = false;
+    private bool isStun = false;
 
     private float fallvelocity;
 
@@ -129,7 +128,6 @@ public class PlayerMove : MonoBehaviour
 
                 characterBody.forward = moveDir;
                 rb.MovePosition(transform.position + moveDir.normalized * moveSpeed * Time.fixedDeltaTime);
-                //transform.position += Vector3.ClampMagnitude(moveDir.normalized, 1f) * Time.deltaTime * moveSpeed;
             }
         }
     }
