@@ -132,16 +132,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider coll)
     {
-        if (collision.gameObject.CompareTag("GROUND"))
+        if (coll.gameObject.CompareTag("GROUND"))
         {
             isAir = false;
 
             if (isFall == true)
             {
                 isFall = false;
-                anim.SetBool("IsFall", false);
+                anim.SetBool("IsFall", isFall);
                 isStun = true;
             } 
             else
