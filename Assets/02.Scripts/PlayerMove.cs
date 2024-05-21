@@ -38,7 +38,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        cameraArm.position = new Vector3(characterBody.position.x, characterBody.position.y + 5, characterBody.position.z);
+        //cameraArm.position = new Vector3(characterBody.position.x, characterBody.position.y + 5, characterBody.position.z);
 
         switch (state)
         {
@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviour
                 anim.SetInteger("State", 2);
                 break;
         }
-        LookAround();
+        //LookAround();
         Jump();
         PostUpdate();
         if (isStun)
@@ -78,7 +78,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void LookAround()
+    /*private void LookAround()
     {
         Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Vector3 camAngle = cameraArm.rotation.eulerAngles;
@@ -94,7 +94,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x * sensitity, camAngle.z);  
-    }
+    }*/
 
     void PostUpdate()
     {
