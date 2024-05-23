@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -12,12 +11,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     public Transform cameraArm;
 
-    public enum AnimState { IDLE, JUMP,LAND };
+    public enum AnimState { IDLE, JUMP, LAND };
     public static AnimState state = AnimState.IDLE;
 
     public float moveSpeed = 5f;
     public int jumpPower = 10;
-    public float sensitity = 1f;
+    public float sensitivity = 1f;
 
     private Rigidbody rb;
     private Animator anim;
@@ -38,8 +37,6 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        //cameraArm.position = new Vector3(characterBody.position.x, characterBody.position.y + 5, characterBody.position.z);
-
         switch (state)
         {
             case AnimState.IDLE:
@@ -52,13 +49,12 @@ public class PlayerMove : MonoBehaviour
                 anim.SetInteger("State", 2);
                 break;
         }
-        //LookAround();
         Jump();
         PostUpdate();
         if (isStun)
         {
             isStun = true;
-            Invoke("WaketoStunned",3.0f);
+            Invoke("WaketoStunned", 3.0f);
         }
     }
 
@@ -67,47 +63,42 @@ public class PlayerMove : MonoBehaviour
         Move();
         fallCheck();
     }
-    
-    private void fallCheck()
+
+    private void fallCheck() //바닥 방향으로 Ray
     {
         fallvelocity = rb.velocity.y;
-        if (fallvelocity < -30.0f)
+        Vector3 rayPoint = characterBody.transform.position + Vector3.up;
+        Vector3 rayDir = -characterBody.transform.up;
+
+        Debug.DrawRay(rayPoint, rayDir * 10, Color.red);
+
+        if (Physics.Raycast(rayPoint, rayDir, out RaycastHit hit, 10f, 1 << 8))
         {
-            isFall = true;
-            anim.SetBool("IsFall", isFall);
+            Debug.Log("Raycast hit: " + hit.transform.name);
+        }
+        else
+        {
+            Debug.Log("10의 거리 안에 바닥이 없음");
+            if (fallvelocity < -30.0f)
+            {
+                isFall = true;
+                anim.SetBool("IsFall", isFall);
+            }
         }
     }
 
-    /*private void LookAround()
-    {
-        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        Vector3 camAngle = cameraArm.rotation.eulerAngles;
-        float x = camAngle.x - mouseDelta.y;
-
-        if(x < 180f) //카메라가 위로 회전하는 경우
-        {
-            x = Mathf.Clamp(x, -1f, 70f);
-        }
-        else //카메라가 아래로 회전하는 경우
-        {
-            x = Mathf.Clamp(x, 335f, 361f); 
-        }
-
-        cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x * sensitity, camAngle.z);  
-    }*/
-
-    void PostUpdate()
+    void PostUpdate() //자신의 이전  Y좌표 저장
     {
         m_prevPosY = transform.position.y;
     }
 
-    void WaketoStunned() 
+    void WaketoStunned() //기절 해제
     {
         isStun = false;
         state = AnimState.IDLE;
     }
 
-    private void Move()
+    private void Move() //캐릭터 움직임 제어
     {
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         bool isMove = moveInput.magnitude != 0;
@@ -118,7 +109,7 @@ public class PlayerMove : MonoBehaviour
 
         if (!isStun)
         {
-            if(!isAir)
+            if (!isAir)
                 anim.SetBool("IsMove", isMove);
             if (isMove)
             {
@@ -143,7 +134,7 @@ public class PlayerMove : MonoBehaviour
                 isFall = false;
                 anim.SetBool("IsFall", isFall);
                 isStun = true;
-            } 
+            }
             else
             {
                 state = AnimState.LAND;
@@ -157,7 +148,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (!isAir)
             {
-                if(!isStun)
+                if (!isStun)
                 {
                     rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
                     isAir = true;

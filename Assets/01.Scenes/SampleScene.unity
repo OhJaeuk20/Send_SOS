@@ -772,7 +772,7 @@ MonoBehaviour:
   cameraArm: {fileID: 1016696884}
   moveSpeed: 20
   jumpPower: 20
-  sensitity: 3
+  sensitivity: 1
 --- !u!136 &1518160229
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 1937339303}
   - component: {fileID: 1937339302}
   - component: {fileID: 1937339301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: GROUND
   m_Icon: {fileID: 0}
