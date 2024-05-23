@@ -140,6 +140,10 @@ public class PlayerMove : MonoBehaviour
                 state = AnimState.LAND;
             }
         }
+        else if (coll.gameObject.CompareTag("BOUNCE_PAD"))
+        {
+            BounceFromPad(coll.GetComponent<BouncePad>().bounceForce);
+        }
     }
 
     private void Jump()
@@ -157,5 +161,13 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void BounceFromPad(float padBounceForce)
+    {
+        rb.AddForce(Vector3.up * padBounceForce, ForceMode.Impulse);
+        isAir = true;
+        anim.SetBool("IsMove", false);
+        state = AnimState.JUMP;
     }
 }
