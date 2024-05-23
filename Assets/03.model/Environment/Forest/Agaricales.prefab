@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5727454676624059809}
   - component: {fileID: 7537045449228900715}
   m_Layer: 0
-  m_Name: Agaricales_big
+  m_Name: Agaricales
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
