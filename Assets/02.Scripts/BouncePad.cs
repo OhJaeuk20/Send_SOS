@@ -18,6 +18,7 @@ public class BouncePad : MonoBehaviour
                 float dotProduct = Vector3.Dot(transform.up, Vector3.up);
                 if (dotProduct > upwardThreshold)
                 {
+                    Debug.Log("Step Mushroom");
                     playerMove.BounceFromPad(bounceForce);
                 }
             }

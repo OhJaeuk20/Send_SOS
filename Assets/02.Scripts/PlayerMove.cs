@@ -104,8 +104,6 @@ public class PlayerMove : MonoBehaviour
         bool isMove = moveInput.magnitude != 0;
 
         Debug.DrawRay(cameraArm.position, new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized, Color.red);
-        var h = Input.GetAxis("Horizontal");
-        var v = Input.GetAxis("Vertical");
 
         if (!isStun)
         {
@@ -117,7 +115,9 @@ public class PlayerMove : MonoBehaviour
                 Vector3 lookRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
                 Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
-                characterBody.forward = moveDir;
+                Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+                characterBody.rotation = Quaternion.Slerp(characterBody.rotation, targetRotation, sensitivity * 5f *Time.deltaTime);
+
                 rb.MovePosition(transform.position + moveDir.normalized * moveSpeed * Time.fixedDeltaTime);
             }
         }
