@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        switch (state)
+        switch (state) //캐릭터 상태 결정
         {
             case AnimState.IDLE:
                 anim.SetInteger("State", 0);
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() //물리법칙에 영향 받는 
     {
         Move();
         fallCheck();
@@ -123,7 +123,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider coll)
+    private void OnTriggerEnter(Collider coll) // 캐릭터 발 밑 콜라이더 판정
     {
         if (coll.gameObject.CompareTag("GROUND"))
         {
@@ -146,7 +146,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void Jump() //캐릭터 점프 구현
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -163,7 +163,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void BounceFromPad(float padBounceForce)
+    public void BounceFromPad(float padBounceForce) //점프 패드 구현
     {
         rb.AddForce(Vector3.up * padBounceForce, ForceMode.Impulse);
         isAir = true;
