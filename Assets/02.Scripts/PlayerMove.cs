@@ -172,7 +172,7 @@ public class PlayerMove : MonoBehaviour
             isFall = false; // 낙하 상태 취소
             isAir = true;  // isAir를 true로 설정하여 공중 상태 유지
             fallvelocity = 0; // 속도를 초기화하여 일관된 점프 높이 보장
-            rb.AddForce(Vector3.up * jumpPower * 2f, ForceMode.Impulse);
+            //rb.AddForce(Vector3.up * jumpPower * 2f, ForceMode.Impulse);
             isMove = false;
             state = AnimState.JUMP;
         }

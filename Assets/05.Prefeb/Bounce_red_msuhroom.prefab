@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2228976879826621227}
   - component: {fileID: -8192242263365265412}
   - component: {fileID: -5078180830851515566}
+  - component: {fileID: -7073117089060500127}
   m_Layer: 8
   m_Name: Bounce_red_msuhroom
   m_TagString: BOUNCE_PAD
@@ -110,3 +111,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: 1f0f132cc1cd02848b19e53739cb45eb, type: 3}
+--- !u!114 &-7073117089060500127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427304138732237566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f0e50cc05fcdb49a94af5ebeface25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 20
