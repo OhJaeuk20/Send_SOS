@@ -2,7 +2,7 @@
 
 public class BouncePad : MonoBehaviour
 {
-    public float bounceForce = 20f; // 튕김 힘
+    public float bounceHeight = 10f; // 원하는 튕김 높이
 
     private void OnTriggerEnter(Collider other)
     {
@@ -11,8 +11,9 @@ public class BouncePad : MonoBehaviour
             Rigidbody rb = other.GetComponent<Rigidbody>(); // 플레이어의 Rigidbody 컴포넌트 가져오기
             if (rb != null) // Rigidbody가 존재하는 경우
             {
-                rb.velocity = Vector3.zero;
-                rb.AddForce(transform.up * bounceForce, ForceMode.Impulse);
+                rb.velocity = Vector3.zero; // 기존 속도 초기화
+                float bounceVelocity = Mathf.Sqrt(2 * bounceHeight * Physics.gravity.magnitude); // 일정한 높이로 설정할 속도 계산
+                rb.velocity = new Vector3(rb.velocity.x, bounceVelocity, rb.velocity.z); // 속도 설정
             }
         }
     }
