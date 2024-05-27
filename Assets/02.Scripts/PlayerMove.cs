@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class PlayerMove : MonoBehaviour
         Move();
         Jump();
         PostUpdate();
+
         if (isStun)
         {
             isStun = true;
@@ -67,12 +69,12 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() // 물리법칙에 영향 받는
+    private void FixedUpdate()
     {
         fallCheck();
     }
 
-    private void fallCheck() // 바닥 방향으로 Ray
+    private void fallCheck()
     {
         fallvelocity = rb.velocity.y;
         Vector3 rayPoint = characterBody.transform.position + Vector3.up;
@@ -82,16 +84,14 @@ public class PlayerMove : MonoBehaviour
 
         if (Physics.Raycast(rayPoint, rayDir, out RaycastHit hit, 10f, 1 << 8))
         {
-            Debug.Log("Raycast hit: " + hit.transform.name);
-            if (hit.transform.CompareTag("BOUNCE_PAD")) // 바운스 패드와 충돌한 경우
+            if (hit.transform.CompareTag("BOUNCE_PAD"))
             {
-                isFall = false; // 낙하 상태 해제
-                anim.SetBool("IsFall", isFall); // 애니메이션 상태 갱신
+                isFall = false;
+                anim.SetBool("IsFall", isFall);
             }
         }
         else
         {
-            Debug.Log("10의 거리 안에 바닥이 없음");
             if (fallvelocity < -30.0f)
             {
                 isFall = true;
@@ -105,21 +105,21 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void PostUpdate() // 자신의 이전 Y좌표 저장
+    void PostUpdate()
     {
         m_prevPosY = transform.position.y;
     }
 
-    void WaketoStunned() // 기절 해제
+    void WaketoStunned()
     {
         isStun = false;
         state = AnimState.IDLE;
     }
 
-    private void Move() // 캐릭터 움직임 제어
+    private void Move()
     {
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        isMove = moveInput.magnitude != 0; // isMove 상태 업데이트
+        isMove = moveInput.magnitude != 0;
 
         Debug.DrawRay(cameraArm.position, new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized, Color.red);
 
@@ -143,24 +143,21 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider coll) // 캐릭터 발 밑 콜라이더 판정
+    private void OnTriggerEnter(Collider coll)
     {
         if (coll.CompareTag("GROUND"))
         {
-            Debug.Log("Ground!");
-            isAir = false; // Ground와 충돌 시 isAir를 false로 설정
+            isAir = false;
 
             if (isFall)
             {
-                Debug.Log("CRASH!!!");
                 isFall = false;
-                isAir = false; // CRASH 상태이므로 isAir도 false로 설정
+                isAir = false;
                 state = AnimState.CRASH;
                 isStun = true;
             }
             else
             {
-                Debug.Log("LAND...");
                 isFall = false;
                 isAir = false;
                 state = AnimState.LAND;
@@ -168,22 +165,18 @@ public class PlayerMove : MonoBehaviour
         }
         else if (coll.CompareTag("BOUNCE_PAD"))
         {
-            Debug.Log("Bounce!");
-            isFall = false; // 낙하 상태 취소
-            isAir = true;  // isAir를 true로 설정하여 공중 상태 유지
-            fallvelocity = 0; // 속도를 초기화하여 일관된 점프 높이 보장
-            //rb.AddForce(Vector3.up * jumpPower * 2f, ForceMode.Impulse);
+            isFall = false;
+            isAir = true;
+            fallvelocity = 0;
             isMove = false;
             state = AnimState.JUMP;
         }
     }
 
-    private void Jump() // 캐릭터 점프 구현
+    private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isAir && !isStun)
         {
-            Debug.Log("Jump!!!");
-            isMove = false;
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             isAir = true;
             isFall = false;
