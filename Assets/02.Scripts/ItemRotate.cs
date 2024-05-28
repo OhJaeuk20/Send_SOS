@@ -2,11 +2,13 @@
 
 public class ItemRotate : MonoBehaviour
 {
-    public float rotationSpeed = 10f; // 회전 속도 (초당 회전 각도)
+    // 회전 속도를 조절하기 위한 변수
+    public float rotationSpeed = 20.0f;
 
+    // 매 프레임마다 호출되는 함수
     void Update()
     {
-        // 매 프레임마다 Y축을 기준으로 회전
-        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        // y축을 중심으로 제자리 회전
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
 }
