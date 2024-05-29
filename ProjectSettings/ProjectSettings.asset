@@ -705,10 +705,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: a6fa2fb3-f5c1-4b55-9ec3-0f567106544d
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
-  projectName: My_Unity_Labs
-  organizationId: decisive20_unity
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
