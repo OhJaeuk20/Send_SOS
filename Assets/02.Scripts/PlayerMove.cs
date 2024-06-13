@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -22,7 +18,6 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
 
-    private float m_prevPosY = 0.0f;
     private bool isMove = false;
     private bool isAir = false;
     private bool isFall = false;
@@ -34,38 +29,18 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = characterBody.GetComponent<Animator>();
-        m_prevPosY = transform.position.y;
     }
 
     void Update()
     {
-        switch (state) // 캐릭터 상태 결정
-        {
-            case AnimState.IDLE:
-                anim.SetInteger("State", 0);
-                break;
-            case AnimState.JUMP:
-                anim.SetInteger("State", 1);
-                break;
-            case AnimState.LAND:
-                anim.SetInteger("State", 2);
-                break;
-            case AnimState.CRASH:
-                anim.SetInteger("State", 3);
-                break;
-        }
-
-        anim.SetBool("IsMove", isMove);
-        anim.SetBool("IsFall", isFall);
-
+        // 상태 전환 로직
+        UpdateAnimationState();
         Move();
         Jump();
-        PostUpdate();
 
-        if (isStun)
+        if (isStun && !IsInvoking("WaketoStunned"))
         {
-            isStun = true;
-            Invoke("WaketoStunned", 3.0f);
+            StartCoroutine(WaketoStunned());
         }
     }
 
@@ -97,7 +72,7 @@ public class PlayerMove : MonoBehaviour
                 isFall = true;
                 anim.SetBool("IsFall", isFall);
             }
-            else
+            else if (!isAir)
             {
                 isFall = false;
                 state = AnimState.JUMP;
@@ -105,13 +80,30 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void PostUpdate()
+    private void UpdateAnimationState()
     {
-        m_prevPosY = transform.position.y;
+        switch (state)
+        {
+            case AnimState.IDLE:
+                anim.SetInteger("State", 0);
+                break;
+            case AnimState.JUMP:
+                anim.SetInteger("State", 1);
+                break;
+            case AnimState.LAND:
+                anim.SetInteger("State", 2);
+                break;
+            case AnimState.CRASH:
+                anim.SetInteger("State", 3);
+                break;
+        }
+        anim.SetBool("IsMove", isMove);
+        anim.SetBool("IsFall", isFall);
     }
 
-    void WaketoStunned()
+    IEnumerator WaketoStunned()
     {
+        yield return new WaitForSeconds(3.0f);
         isStun = false;
         state = AnimState.IDLE;
     }
@@ -148,16 +140,19 @@ public class PlayerMove : MonoBehaviour
         if (coll.CompareTag("GROUND"))
         {
             isAir = false;
-
+            Debug.Log("GROUND");
             if (isFall)
             {
+                Debug.Log("CRASH");
                 isFall = false;
                 isAir = false;
                 state = AnimState.CRASH;
                 isStun = true;
+                StartCoroutine(WaketoStunned()); // 3초 후에 상태를 IDLE로 변경
             }
             else
             {
+                Debug.Log("LAND");
                 isFall = false;
                 isAir = false;
                 state = AnimState.LAND;
