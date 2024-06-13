@@ -1645,6 +1645,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7700544056867511784, guid: a5b5ebd6268979ffd93401ec8b2cc18c, type: 3}
+--- !u!114 &49113374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49113372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  height: 3
+  startMovingUp: 0
 --- !u!1 &49456366 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1895400029181478, guid: 419d269016150f54da85b1478b181d45,
@@ -2253,12 +2268,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -2476,12 +2491,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -5615,12 +5630,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -7049,7 +7064,7 @@ PrefabInstance:
     - target: {fileID: 1024024548810372816, guid: 80fc00d825bc94bdabad193049acc262,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 282.2
+      value: 290.4
       objectReference: {fileID: 0}
     - target: {fileID: 1024024548810372816, guid: 80fc00d825bc94bdabad193049acc262,
         type: 3}
@@ -7209,7 +7224,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 94
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -7280,6 +7295,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce_CouchSet 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115084348563449402, guid: 049adbd037053c646948c8d4ff6e6d8b,
+        type: 3}
+      propertyPath: bounceHeight
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 049adbd037053c646948c8d4ff6e6d8b, type: 3}
@@ -7899,7 +7919,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 94
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -7955,6 +7975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce_CouchSet 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115084348563449402, guid: 049adbd037053c646948c8d4ff6e6d8b,
+        type: 3}
+      propertyPath: bounceHeight
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 049adbd037053c646948c8d4ff6e6d8b, type: 3}
@@ -9984,6 +10009,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6754954240092519018, guid: 37ce13903ec23b87f91f366271b117b9, type: 3}
+--- !u!114 &505468264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505468259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  height: 3
+  startMovingUp: 1
 --- !u!1 &507224229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953,
@@ -10359,7 +10399,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 89
+      value: 87
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -11017,6 +11057,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7311518986381304031, guid: 46f6bb81d0d8bcb8183cf916b82dffd9, type: 3}
+--- !u!114 &560215944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560215942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  height: 5
+  startMovingUp: 1
 --- !u!1 &567649906 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4203487331839533559, guid: e289bf5debb17f6459818c207d781953,
@@ -14345,7 +14400,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 94
+      value: 89
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -14401,6 +14456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce_CouchSet 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115084348563449402, guid: 049adbd037053c646948c8d4ff6e6d8b,
+        type: 3}
+      propertyPath: bounceHeight
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 049adbd037053c646948c8d4ff6e6d8b, type: 3}
@@ -15746,22 +15806,22 @@ PrefabInstance:
     - target: {fileID: 6690580599928000713, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6690580599928000713, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -16650,7 +16710,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 94
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -16706,6 +16766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce_CouchSet 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115084348563449402, guid: 049adbd037053c646948c8d4ff6e6d8b,
+        type: 3}
+      propertyPath: bounceHeight
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 049adbd037053c646948c8d4ff6e6d8b, type: 3}
@@ -17721,7 +17786,7 @@ PrefabInstance:
     - target: {fileID: 4891917565470961498, guid: 4696a038fa334864c8ebc4ba1b0658b6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 88
+      value: 93
       objectReference: {fileID: 0}
     - target: {fileID: 4891917565470961498, guid: 4696a038fa334864c8ebc4ba1b0658b6,
         type: 3}
@@ -17977,7 +18042,7 @@ PrefabInstance:
     - target: {fileID: 2472532533383093560, guid: 58b8e9c74f874e15c9e15721c4e12d7c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 300.2
+      value: 299.1
       objectReference: {fileID: 0}
     - target: {fileID: 2472532533383093560, guid: 58b8e9c74f874e15c9e15721c4e12d7c,
         type: 3}
@@ -19711,12 +19776,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -20805,7 +20870,7 @@ PrefabInstance:
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 94
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 2255774534596149741, guid: 049adbd037053c646948c8d4ff6e6d8b,
         type: 3}
@@ -20861,6 +20926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce_CouchSet 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115084348563449402, guid: 049adbd037053c646948c8d4ff6e6d8b,
+        type: 3}
+      propertyPath: bounceHeight
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 049adbd037053c646948c8d4ff6e6d8b, type: 3}
@@ -21345,12 +21415,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -27997,12 +28067,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -29320,6 +29390,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2202576893432644312, guid: a9d8ca9c4c644f00b82c604b2fd36c42, type: 3}
+--- !u!114 &1423696222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423696220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  height: 5
+  startMovingUp: 0
 --- !u!1 &1424063977 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1367329994061918, guid: b2097ec4cb55132498f888c0933f3709,
@@ -30467,12 +30552,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -31089,13 +31174,13 @@ Transform:
   - {fileID: 623867136}
   - {fileID: 2060598764}
   - {fileID: 2080076224}
-  - {fileID: 822205900}
   - {fileID: 523891885}
   - {fileID: 787276709}
   - {fileID: 687738062}
   - {fileID: 394470493}
   - {fileID: 1023661640}
   - {fileID: 346462277}
+  - {fileID: 822205900}
   m_Father: {fileID: 611059482}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31248,7 +31333,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518160226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -35837,12 +35922,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -37670,12 +37755,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -38730,12 +38815,12 @@ PrefabInstance:
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7067936637415105213, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: GROUND
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
@@ -44593,6 +44678,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2343263729062942307, guid: e7c426cc2ae1d8e95b37885273256b63, type: 3}
+--- !u!114 &2087985179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087985174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  height: 4
+  startMovingUp: 0
 --- !u!1 &2093728023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1559391727665150, guid: 8c45445f573b3bd4da4a6b466b17c505,
@@ -45352,6 +45452,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2072033631112572818, guid: 8e273bb1a3eb933bf8688fcbc366a9ae, type: 3}
+--- !u!114 &2146333123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146333118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0495ffd9b618d154eb3b1ef499e3182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  height: 10
+  startMovingUp: 1
 --- !u!4 &21922339550543907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3087619765350188191, guid: 1b1efdc77de15834d83ad37fd5c5ff7a,
