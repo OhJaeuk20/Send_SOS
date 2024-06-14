@@ -9,7 +9,7 @@ public class E_TankFire : MonoBehaviour
     public GameObject FirePrefab;
     public bool isFire = false;
 
-    private AudioSource audio;
+    private AudioSource TF_audio;
     private Transform playerTr;
     private float nextFire = 0.0f;
     private readonly float fireRate = 3.0f;
@@ -21,7 +21,7 @@ public class E_TankFire : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null) playerTr = player.GetComponent<Transform>();
-        audio = GetComponent<AudioSource>();
+        TF_audio = GetComponent<AudioSource>();
     }
 
     void Update()

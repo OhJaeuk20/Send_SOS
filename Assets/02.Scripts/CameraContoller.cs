@@ -10,13 +10,6 @@ public class CameraContoller : MonoBehaviour
     private float MouseY;
     private float MouseX;
 
-    private void Start()
-    {
-        // 마우스를 화면 중앙에 고정
-        Cursor.lockState = CursorLockMode.Locked;
-        // 마우스 커서를 숨김
-        Cursor.visible = false;
-    }
     void Update()
     {
         Rotate();
