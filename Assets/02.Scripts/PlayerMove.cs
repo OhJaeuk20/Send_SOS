@@ -51,7 +51,7 @@ public class PlayerMove : MonoBehaviour
     private void fallCheck()
     {
         fallvelocity = rb.velocity.y;
-        if (fallvelocity < -30.0f)
+        if (fallvelocity < -30.0f && state != AnimState.CRASH) // CRASH 상태가 아닐 때만 FALL로 전환
         {
             isFall = true;
             state = AnimState.FALL;
@@ -88,6 +88,15 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         isStun = false;
         state = AnimState.IDLE;
+
+        if (isMove)
+        {
+            state = AnimState.MOVE;
+        }
+        else
+        {
+            state = AnimState.IDLE;
+        }
     }
 
     private void Move()
@@ -101,7 +110,8 @@ public class PlayerMove : MonoBehaviour
         {
             if (isMove)
             {
-                state = AnimState.MOVE;
+                if(!isAir)
+                    state = AnimState.MOVE;
                 Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
                 Vector3 lookRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
                 Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
@@ -127,11 +137,12 @@ public class PlayerMove : MonoBehaviour
             if (isFall)
             {
                 isFall = false;
+                isStun = true;
                 Debug.Log("CRASH");
                 state = AnimState.CRASH;
                 StartCoroutine(WaketoStunned()); // 3초 후에 상태를 IDLE로 변경
             }
-            else
+            else if (state != AnimState.CRASH) // CRASH 상태가 아닐 때만 LAND로 전환
             {
                 Debug.Log("LAND");
                 state = AnimState.LAND;
@@ -139,6 +150,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (coll.CompareTag("BOUNCE_PAD"))
         {
+            isFall = false;
             isAir = true;
             fallvelocity = 0;
             Debug.Log("Boink");
