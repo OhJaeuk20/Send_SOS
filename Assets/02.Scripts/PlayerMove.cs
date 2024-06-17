@@ -51,7 +51,7 @@ public class PlayerMove : MonoBehaviour
     private void fallCheck()
     {
         fallvelocity = rb.velocity.y;
-        if (fallvelocity < -30.0f && state != AnimState.CRASH) // CRASH 상태가 아닐 때만 FALL로 전환
+        if (fallvelocity < -50.0f && state != AnimState.CRASH) // CRASH 상태가 아닐 때만 FALL로 전환
         {
             isFall = true;
             state = AnimState.FALL;
