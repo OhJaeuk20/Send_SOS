@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1770725748146912461}
   - component: {fileID: 1770725748146912462}
   - component: {fileID: 1770725748146912460}
+  - component: {fileID: 5454696183517083888}
   m_Layer: 8
   m_Name: Bounce_Balloon
   m_TagString: GROUND
@@ -75,7 +76,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0e50cc05fcdb49a94af5ebeface25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceHeight: 10
+  bounceHeight: 60
+--- !u!65 &5454696183517083888
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464664379795571044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 50, z: 50}
+  m_Center: {x: 0, y: 110, z: 0}
 --- !u!1 &5526917007144911437
 GameObject:
   m_ObjectHideFlags: 0
