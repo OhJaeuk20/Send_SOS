@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Title.unity
     guid: c8d55ca95783782448c4576574d28bf8
   - enabled: 1
+    path: Assets/01.Scenes/Opening.unity
+    guid: 98a91e01b36e18d42b31a9764c8bd242
+  - enabled: 1
     path: Assets/01.Scenes/Play.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/01.Scenes/HappyEnd.unity
+    guid: 38fc6055768ecb142beb3cce8c48364d
+  - enabled: 1
+    path: Assets/01.Scenes/BadEnd.unity
+    guid: 043ebaedcee2d6e42ad4764d242abad4
   m_configObjects: {}

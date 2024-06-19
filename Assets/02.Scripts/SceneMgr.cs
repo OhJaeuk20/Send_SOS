@@ -7,7 +7,7 @@ public class SceneMgr: MonoBehaviour
 {
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("Opening");
     }
 
     public void OnClickExitButton()

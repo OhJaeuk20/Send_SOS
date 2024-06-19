@@ -5,12 +5,10 @@ public class FishingRod : MonoBehaviour
 {
     public Transform fishingRodEnd; // 낚싯대 끝 부분 (자식 오브젝트)
     public Transform targetPosition; // 플레이어를 이동시킬 위치
-    public float holdDuration = 2f; // 플레이어를 잡아둘 시간
     public float moveSpeed = 5f; // 낚싯대가 이동할 속도
 
     private bool playerCaught = false;
     private GameObject caughtPlayer;
-    private float holdTimer = 0f;
     private Vector3 originalPosition;
 
     // 새로운 변수 추가: 현재 낚싯대가 움직이고 있는지 여부
@@ -37,17 +35,17 @@ public class FishingRod : MonoBehaviour
                 rb.angularVelocity = Vector3.zero; // 각속도 초기화
             }
 
-            // 플레이어를 낚싯대 끝 좌표계로 이동시킴
-            caughtPlayer.transform.position = fishingRodEnd.position;
+            // 플레이어를 낚싯대 끝 좌표계로 이동시킴 (Y축으로 1 낮은 위치)
+            caughtPlayer.transform.position = fishingRodEnd.position + new Vector3(0, -0.6f, -0.2f);
             caughtPlayer.transform.SetParent(fishingRodEnd);
 
-            // 플레이어의 위치를 항상 낚싯대 끝 부분에 고정
-            caughtPlayer.transform.localPosition = Vector3.zero;
+            // 플레이어의 위치를 항상 낚싯대 끝 부분에 고정 (Y축으로 1 낮은 위치)
+            caughtPlayer.transform.localPosition = new Vector3(0, -0.6f, -0.2f);
 
             // 플레이어의 입력 제한 설정
             SetPlayerInputEnabled(true);
 
-            holdTimer = holdDuration;
+            StartCoroutine(MoveToTarget()); // 바로 이동 시작
         }
     }
 
@@ -57,18 +55,6 @@ public class FishingRod : MonoBehaviour
         if (playerMove != null)
         {
             playerMove.SetCaughtState(isCaught);
-        }
-    }
-
-    void Update()
-    {
-        if (playerCaught && !isMoving) // 움직이는 중이 아닐 때만 업데이트
-        {
-            holdTimer -= Time.deltaTime;
-            if (holdTimer <= 0f)
-            {
-                StartCoroutine(MoveToTarget());
-            }
         }
     }
 
