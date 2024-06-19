@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     private bool isAir = false;
     private bool isFall = false;
     private bool isStun = false;
+    private bool isCaught = false;
 
     private float fallvelocity;
 
@@ -166,5 +167,10 @@ public class PlayerMove : MonoBehaviour
             isAir = true;
             state = AnimState.JUMP;
         }
+    }
+
+    public void SetCaughtState(bool caught)
+    {
+        isCaught = caught;
     }
 }
