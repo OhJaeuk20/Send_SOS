@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class EndingCredit : MonoBehaviour
 {
-    public float scrollSpeed = 50f;
-    public float endPositionY = 1000f; // 크레딧이 끝날 위치
-    public string nextSceneName; // 다음 씬의 이름
+    public float scrollSpeed = 200f;
+    public float endPositionY = 2000f; // 크레딧이 끝날 위치
 
     private RectTransform rectTransform;
 
@@ -21,9 +20,9 @@ public class EndingCredit : MonoBehaviour
         rectTransform.anchoredPosition += new Vector2(0, scrollSpeed * Time.deltaTime);
 
         // 크레딧이 끝 위치에 도달했을 때 다음 씬으로 전환
-        if (rectTransform.anchoredPosition.y >= endPositionY)
+        if (rectTransform.anchoredPosition.y >= endPositionY || Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene("Title");
         }
     }
 }

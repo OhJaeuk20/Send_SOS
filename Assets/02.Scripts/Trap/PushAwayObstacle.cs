@@ -2,7 +2,7 @@
 
 public class PushAwayObstacle : MonoBehaviour
 {
-    public float pushForce = 10.0f; // 밀어내는 힘의 크기
+    public float pushForce = 50.0f; // 밀어내는 힘의 크기
 
     void OnTriggerEnter(Collider other)
     {

@@ -11,12 +11,17 @@ public class PlayerMove : MonoBehaviour
     public enum AnimState { IDLE, MOVE,JUMP, FALL, LAND, CRASH };
     public static AnimState state = AnimState.IDLE;
 
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    public AudioClip crashSound;
+
     public float moveSpeed = 5f;
     public int jumpPower = 10;
     public float sensitivity = 1f;
 
     private Rigidbody rb;
     private Animator anim;
+    private AudioSource audioSource;
 
     private bool isMove = false;
     private bool isAir = false;
@@ -30,6 +35,7 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = characterBody.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -141,12 +147,14 @@ public class PlayerMove : MonoBehaviour
                 isStun = true;
                 Debug.Log("CRASH");
                 state = AnimState.CRASH;
+                PlaySound(crashSound);
                 StartCoroutine(WaketoStunned()); // 3초 후에 상태를 IDLE로 변경
             }
             else if (state != AnimState.CRASH) // CRASH 상태가 아닐 때만 LAND로 전환
             {
                 Debug.Log("LAND");
                 state = AnimState.LAND;
+                PlaySound(landSound);
             }
         }
         else if (coll.CompareTag("BOUNCE_PAD"))
@@ -166,11 +174,18 @@ public class PlayerMove : MonoBehaviour
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             isAir = true;
             state = AnimState.JUMP;
+            PlaySound(jumpSound);
         }
     }
 
     public void SetCaughtState(bool caught)
     {
         isCaught = caught;
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

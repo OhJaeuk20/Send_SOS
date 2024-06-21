@@ -106,6 +106,7 @@ public class ExplosionEffect : MonoBehaviour
         DestroyExplosionRange();
 
         // 폭발 프리팹 파괴
+        Destroy(shellInstance);
         Destroy(gameObject);
     }
 

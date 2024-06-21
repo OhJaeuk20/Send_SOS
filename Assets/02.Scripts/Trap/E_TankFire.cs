@@ -33,6 +33,7 @@ public class E_TankFire : MonoBehaviour
 
             if (Time.time >= nextFire)
             {
+                TF_audio.Play();
                 CreateFireEffect();
                 CreateExplosion();
                 nextFire = Time.time + fireRate + Random.Range(0.0f, 0.3f);
