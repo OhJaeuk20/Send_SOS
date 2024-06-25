@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     public Transform cameraArm;
 
-    public enum AnimState { IDLE, MOVE,JUMP, FALL, LAND, CRASH };
+    public enum AnimState { IDLE, MOVE, JUMP, FALL, LAND, CRASH };
     public static AnimState state = AnimState.IDLE;
 
     public AudioClip jumpSound;
@@ -22,6 +22,8 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private AudioSource audioSource;
+    private GameObject BGManager;
+    private GameObject USManager;
 
     private bool isMove = false;
     private bool isAir = false;
@@ -36,6 +38,8 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim = characterBody.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        BGManager = GameObject.Find("BGM");
+        USManager = GameObject.Find("UISound");
     }
 
     void Update()
@@ -45,11 +49,19 @@ public class PlayerMove : MonoBehaviour
         {
             StartCoroutine(WaketoStunned());
         }
+
+        if (BGManager != null)
+        {
+            BGManager.transform.position = characterBody.transform.position;
+        }
+        if (USManager != null)
+        {
+            USManager.transform.position = characterBody.transform.position;
+        }
     }
 
     private void FixedUpdate()
     {
-        // 상태 전환 로직
         UpdateAnimationState();
         Move();
         fallCheck();
@@ -58,7 +70,7 @@ public class PlayerMove : MonoBehaviour
     private void fallCheck()
     {
         fallvelocity = rb.velocity.y;
-        if (fallvelocity < -50.0f && state != AnimState.CRASH) // CRASH 상태가 아닐 때만 FALL로 전환
+        if (fallvelocity < -50.0f && state != AnimState.CRASH)
         {
             isFall = true;
             state = AnimState.FALL;
@@ -117,7 +129,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (isMove)
             {
-                if(!isAir)
+                if (!isAir)
                     state = AnimState.MOVE;
                 Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
                 Vector3 lookRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
@@ -135,24 +147,29 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider coll)
+    {
+        if (coll.CompareTag("GROUND") && rb.velocity.y <= 0)
+        {
+            isAir = false;
+            isFall = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider coll)
     {
         if (coll.CompareTag("GROUND"))
         {
-            isAir = false;
-            Debug.Log("GROUND");
             if (isFall)
             {
                 isFall = false;
                 isStun = true;
-                Debug.Log("CRASH");
                 state = AnimState.CRASH;
                 PlaySound(crashSound);
-                StartCoroutine(WaketoStunned()); // 3초 후에 상태를 IDLE로 변경
+                StartCoroutine(WaketoStunned());
             }
-            else if (state != AnimState.CRASH) // CRASH 상태가 아닐 때만 LAND로 전환
+            else if (state != AnimState.CRASH)
             {
-                Debug.Log("LAND");
                 state = AnimState.LAND;
                 PlaySound(landSound);
             }
@@ -162,7 +179,6 @@ public class PlayerMove : MonoBehaviour
             isFall = false;
             isAir = true;
             fallvelocity = 0;
-            Debug.Log("Boink");
             state = AnimState.JUMP;
         }
     }
@@ -181,6 +197,17 @@ public class PlayerMove : MonoBehaviour
     public void SetCaughtState(bool caught)
     {
         isCaught = caught;
+    }
+    public void SetFallSpeed(float newFallSpeed)
+    {
+        Vector3 currentVelocity = rb.velocity;
+        currentVelocity.y = newFallSpeed;
+        rb.velocity = currentVelocity;
+    }
+
+    public void ResetFallSpeed()
+    {
+        rb.mass = 1; // or another property that defines falling speed
     }
 
     void PlaySound(AudioClip clip)

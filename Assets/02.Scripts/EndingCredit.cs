@@ -22,6 +22,8 @@ public class EndingCredit : MonoBehaviour
         // 크레딧이 끝 위치에 도달했을 때 다음 씬으로 전환
         if (rectTransform.anchoredPosition.y >= endPositionY || Input.GetKeyDown(KeyCode.Escape))
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene("Title");
         }
     }

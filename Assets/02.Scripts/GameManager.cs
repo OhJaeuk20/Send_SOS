@@ -12,19 +12,17 @@ public class GameManager : MonoBehaviour
     private GameObject optionPanel;
     private GameObject player;
     private Rigidbody playerRigidbody;
-
-    public AudioClip buttonClickSound; // 버튼 클릭 소리
-    public AudioClip panelOpenSound; // 패널 열림 소리
-    private AudioSource audioSource; // 오디오 소스
+    private Text finalRecord;
 
     public Material skyboxAbove1900;
     public Material skyboxBelow1900;
 
     private bool isGamePaused = false;
-    private bool isMouseInputEnabled = true;
     private float startTime;
     private bool isTiming = false;
     private float elapsedTime;
+    private bool isPlayScene;
+    private string record;
 
     void Awake()
     {
@@ -40,13 +38,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    IEnumerator Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         InitializeGame(SceneManager.GetActiveScene(), LoadSceneMode.Single);
-
-        // AudioSource 초기화
-        audioSource = gameObject.AddComponent<AudioSource>();
+        yield return new WaitForSeconds(1);
     }
 
     void InitializeGame(Scene scene, LoadSceneMode mode)
@@ -59,12 +55,16 @@ public class GameManager : MonoBehaviour
             InitializeTitleButtons(); // 타이틀 씬의 버튼 리스너 초기화
             // 타이틀 씬에서 BGM 설정
             BackgroundMusicManager.Instance.SetBackgroundMusic(BackgroundMusicManager.Instance.backgroundMusicTitle);
+            isPlayScene = false;
         }
-        else if (currentSceneName == "Play")
+        if (currentSceneName == "Play")
         {
+            isPlayScene = true;
             InitializePausePanel();
             InitializePlayer();
             InitializeTimerText();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             // Play 씬에서 BGM 설정
             BackgroundMusicManager.Instance.SetBackgroundMusic(BackgroundMusicManager.Instance.backgroundMusicBelow210);
             StartTimer(); // 타이머 시작
@@ -73,16 +73,21 @@ public class GameManager : MonoBehaviour
         {
             // 엔딩 씬에서 BGM 설정
             BackgroundMusicManager.Instance.SetBackgroundMusic(BackgroundMusicManager.Instance.backgroundMusicOpening);
+            isPlayScene = false;
         }
         else if (currentSceneName == "HappyEnd")
         {
             // 엔딩 씬에서 BGM 설정
+            InitializeFinalRecord();
             BackgroundMusicManager.Instance.SetBackgroundMusic(BackgroundMusicManager.Instance.backgroundMusicHappyEnd);
+            isPlayScene = false;
         }
         else if (currentSceneName == "BadEnd")
         {
             // 엔딩 씬에서 BGM 설정
+            InitializeFinalRecord();
             BackgroundMusicManager.Instance.SetBackgroundMusic(BackgroundMusicManager.Instance.backgroundMusicBadEnd);
+            isPlayScene = false;
         }
     }
 
@@ -210,7 +215,7 @@ public class GameManager : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
                 OnClickExitButton();
-                PlaySound(buttonClickSound); // 버튼 클릭 소리 재생
+                UISoundManager.instance.PlayButtonClickSound();
             });
         }
         else
@@ -226,12 +231,22 @@ public class GameManager : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
                 OnOptionButtonClicked();
-                PlaySound(buttonClickSound); // 버튼 클릭 소리 재생
+                UISoundManager.instance.PlayButtonClickSound();
             });
         }
         else
         {
             Debug.LogWarning("OptionButton could not be found in the scene.");
+        }
+    }
+
+    void InitializeFinalRecord()
+    {
+        finalRecord = GameObject.Find("Final_Record").GetComponent<Text>();
+        finalRecord.text = record;
+        if (finalRecord == null)
+        {
+            Debug.LogWarning("TimerText could not be found in the scene.");
         }
     }
 
@@ -283,7 +298,8 @@ public class GameManager : MonoBehaviour
                 UpdateTimerUI();
             }
 
-            if (isMouseInputEnabled && Input.GetKeyDown(KeyCode.Escape))
+            // ESC 키 입력 처리
+            if (isPlayScene && Input.GetKeyDown(KeyCode.Escape))
             {
                 TogglePause();
             }
@@ -296,15 +312,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void OnClickStartButton()
     {
-        PlaySound(buttonClickSound);
+        UISoundManager.instance.PlayButtonClickSound();
         SceneManager.LoadScene("Opening");
     }
 
     public void OnClickExitButton()
     {
-        PlaySound(buttonClickSound);
+        UISoundManager.instance.PlayButtonClickSound();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -312,28 +329,30 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
-    public void TogglePause()
+public void TogglePause()
+{
+    isGamePaused = true;
+
+    if (isGamePaused)
     {
-        isGamePaused = !isGamePaused;
-        if (isGamePaused)
+        PauseGame();
+        if (pausePanel != null && !pausePanel.activeSelf) // Check if pausePanel is not active
         {
-            PauseGame();
-            if (pausePanel != null && !pausePanel.activeSelf) // pausePanel이 활성화되지 않은 경우에만 활성화
-            {
-                pausePanel.SetActive(true);
-                PlaySound(panelOpenSound);
-            }
+            UISoundManager.instance.PlayPanelOpenSound();
+            pausePanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
+}
+
 
     public void OnOptionButtonClicked()
     {
         if (optionPanel != null)
         {
             optionPanel.SetActive(true);
-            PlaySound(panelOpenSound); // 패널 열림 소리 재생
+            UISoundManager.instance.PlayPanelOpenSound();
         }
         else
         {
@@ -343,6 +362,7 @@ public class GameManager : MonoBehaviour
 
     public void OnOptionCancelButtonClicked()
     {
+        UISoundManager.instance.PlayPanelOpenSound();
         optionPanel = GameObject.Find("Option_Panel");
         if (optionPanel != null)
         {
@@ -356,21 +376,25 @@ public class GameManager : MonoBehaviour
 
     public void OnCancelButtonClicked()
     {
-        pausePanel = GameObject.Find("Pause_Panel");
         ResumeGame();
-        if (pausePanel != null) // pausePanel이 활성화된 경우에만 비활성화
+        if (pausePanel == null)
         {
-            pausePanel.SetActive(false);
-            PlaySound(buttonClickSound);
+            pausePanel = GameObject.Find("Pause_Panel");
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (pausePanel.activeSelf) // Check if pausePanel is active
+        {
+            UISoundManager.instance.PlayPanelOpenSound();
+            pausePanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        isGamePaused = false;
     }
 
     // 메인 메뉴로 나가기 버튼 클릭 시 호출될 메서드
     public void OnMainMenuButtonClicked()
     {
-        PlaySound(buttonClickSound);
+        UISoundManager.instance.PlayButtonClickSound();
         ResumeGame();
         SceneManager.LoadScene("Title"); // MainMenu 씬으로 이동
     }
@@ -424,6 +448,8 @@ public class GameManager : MonoBehaviour
     {
         isTiming = false;
         UpdateTimerUI(); // 최종 시간 업데이트
+
+        record = timerText.text;
     }
 
     private void UpdateTimerUI()
@@ -450,14 +476,5 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Player position and velocity reset.");
-    }
-
-    // 오디오 재생 메서드
-    private void PlaySound(AudioClip clip)
-    {
-        if (audioSource != null && clip != null)
-        {
-            audioSource.PlayOneShot(clip);
-        }
     }
 }
